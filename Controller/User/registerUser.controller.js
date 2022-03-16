@@ -3,15 +3,34 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const tokenKey = config.get('tokenKey')
+const {check, validationResult} = require('express-validator')
+
+// @route   Post api/users
+// @desc    Register Route
+// @access  Public
+
+const registerValidation = {
+    first_name: check('first_name', 'first name is required').not().isEmpty(),
+    email: check('email', 'Please! write a valid Email address').isEmail(),
+    password: check('password', 'Length should be grater than 6').isLength({ min: 6 }),
+    last_name: check('last_name', 'last name is required').not().isEmpty(),
+    gender: check('gender', 'Gender is required').not().isEmpty(),
+    contactNo: check('contactNo', 'Length must be equal to 11').isLength({min: 11,max: 11})
+}
 
 const registerUserController = async  (req, res) => {
+
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
 
     try{
 
         const {first_name, last_name, email, password, contactNo, gender} = req.body;
 
         if(!(first_name && last_name && email && password && contactNo && gender)){
-            res.status(400).send("All input is required");
+            return res.status(400).send("All input is required");
         }
 
         const oldUser = await User.findOne({email})
@@ -40,13 +59,13 @@ const registerUserController = async  (req, res) => {
 
         newUser.token = token1
 
-        res.status(201).json(newUser);
+        return res.status(201).json(newUser);
 
     }
     catch (err){
         console.log(err)
-        res.status(500).json({ "error": err })
+        return res.status(500).json({ "error": err })
     }
 }
 
-module.exports = {registerUserController}
+module.exports = {registerValidation,registerUserController}
