@@ -5,9 +5,6 @@ const config = require('config')
 const tokenKey = config.get('tokenKey')
 const {check, validationResult} = require('express-validator')
 
-// @route   Post api/users
-// @desc    Register Route
-// @access  Public
 
 const registerValidation = {
     first_name: check('first_name', 'first name is required').not().isEmpty(),
@@ -59,7 +56,7 @@ const registerUserController = async  (req, res) => {
 
         newUser.token = token1
 
-        return res.status(201).json(newUser);
+        return res.status(200).json(newUser);
 
     }
     catch (err){

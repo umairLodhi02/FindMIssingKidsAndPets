@@ -9,7 +9,7 @@ const {deleteUserController} = require('../../Controller/User/deleteUser.control
 
 
 
-router.get('/userlist', auth,  getRegisterUserList )
+router.get('/userlist',  getRegisterUserList )
 router.post('/register',
     [
         validReg.first_name, validReg.last_name,
