@@ -3,16 +3,17 @@ const connectDB = require("./config/db");
 const cors = require('cors')
 const userRouter = require('./routers/userRoutes/user.routes')
 const verifyToken = require('./middleware/auth')
+const {errorHandler} = require("./middleware/error");
+const dotenv = require('dotenv')
+const {notFound} = require("./middleware/error");
 const app = express()
 
 app.use(express.json({extended: true}))
 app.use(express.urlencoded({extended: true}))
-app.use(cors())
+// app.use(cors())
+dotenv.config()
 
 connectDB()
-app.post("/welcome", verifyToken, (req, res) => {
-    res.status(200).send("Welcome 🙌 ");
-});
 
 app.use('/api/user/', userRouter)
 
@@ -27,6 +28,14 @@ app.use("*", (req, res) => {
 
     });
 });
+
+
+app.use(notFound)
+app.use(errorHandler)
+
 const PORT = 5000
 
-app.listen(PORT, () => console.log(`Server started at Port ${PORT}`))
+app.listen(PORT, () => {
+    console.log("alksjda;", process.env.NODE_ENV)
+    console.log(`Server started at Port ${PORT}`)
+})

@@ -5,6 +5,7 @@ const config = require('config')
 const {validationResult} = require("express-validator");
 const {check} = require("express-validator");
 const tokenKey = config.get('tokenKey')
+const asyncHandler = require('express-async-handler')
 
 
 const loginValidation = {
@@ -12,39 +13,35 @@ const loginValidation = {
     password: check('password', 'Password is required').exists()
 }
 
-const loginUserController = async (req, res) => {
+const loginUserController = asyncHandler(async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() })
+        return res.status(400).json({errors: errors.array()})
     }
-    try{
-        const {email, password} = req.body;
 
-        if(!(email && password)){
-            return res.status(400).send("All input is required")
-        }
+    const {email, password} = req.body;
 
-        const user = await User.findOne({email})
+    const user = await User.findOne({email})
 
-        if(user && ( await bcrypt.compare(password, user.password))){
-            const token = jwt.sign(
-                {user_id: user._id, email},
-                tokenKey,
-                {expiresIn: "2h"}
-            )
-            // save user token
-            user.token = token;
-
-            // user
-            return res.status(200).json(user);
-        }
-        return res.status(400).send("Invalid Credentials")
+    if (user && (await bcrypt.compare(password, user.password))) {
+        user.token =  jwt.sign({
+                first_name: user.first_name,
+                last_name: user.last_name,
+                gender:user.gender,
+                contactNo: user.contactNo,
+                email, password
+            },
+            tokenKey,
+            {expiresIn: '2h'}
+        )
+        res.status(200).json(user);
     }
-    catch (err){
-        console.log(err)
-        return res.status(500).send({error: err})
+    else{
+        res.status(400)
+        throw new Error("Invalid Email or Password!")
     }
-}
+
+})
 
 
-module.exports = {loginValidation,loginUserController}
+module.exports = {loginValidation, loginUserController}

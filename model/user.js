@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     token: {
-        type: String
+        type: String,
+        default: ''
     },
     contactNo: {
         type: String
@@ -25,6 +26,10 @@ const userSchema = new mongoose.Schema({
     gender: {
         type: String
     },
+    isAdmin:{
+        type: Boolean,
+        default: false
+    }
 
 })
 module.exports = mongoose.model("User", userSchema);
