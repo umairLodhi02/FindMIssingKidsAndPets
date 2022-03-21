@@ -2,6 +2,7 @@ const express = require('express')
 const connectDB = require("./config/db");
 const cors = require('cors')
 const userRouter = require('./routers/userRoutes/user.routes')
+const kidRouter = require('./routers/kidRoutes/missingKid.routes')
 const verifyToken = require('./middleware/auth')
 const {errorHandler} = require("./middleware/error");
 const dotenv = require('dotenv')
@@ -16,6 +17,7 @@ dotenv.config()
 connectDB()
 
 app.use('/api/user/', userRouter)
+app.use('/api/kids/', kidRouter)
 
 app.use("*", (req, res) => {
     res.status(404).json({

@@ -2,28 +2,18 @@ const router = require('express').Router()
 
 const auth = require('../../middleware/auth')
 
-const {registerValidation: validReg, registerUserController} = require("../../Controller/User/registerUser.controller")
-const {loginValidation: validLog ,loginUserController} = require("../../Controller/User/loginUser.controller")
+const { registerUserController} = require("../../Controller/User/registerUser.controller")
+const {loginUserController} = require("../../Controller/User/loginUser.controller")
 const {getRegisterUserList} = require('../../Controller/User/getUserList.controller')
 const {deleteUserController} = require('../../Controller/User/deleteUser.controller')
-
+const {updateUserProfile} = require('../../Controller/User/updateUser.controller')
 
 
 router.get('/userlist',  getRegisterUserList )
-router.post('/register',
-    [
-        validReg.first_name, validReg.last_name,
-        validReg.password,validReg.email,
-        validReg.gender, validReg.contactNo
-    ] ,
-    registerUserController)
+router.post('/register', registerUserController)
+router.post('/login', loginUserController)
+router.post('/editprofile', updateUserProfile)
 
-router.post('/login',
-    [
-        validLog.email,
-        validLog.password
-    ],
-    loginUserController)
 
 router.delete('/deleteuser/:id', deleteUserController)
 
