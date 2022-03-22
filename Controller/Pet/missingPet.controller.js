@@ -1,10 +1,10 @@
 const aysncHandler = require('express-async-handler')
 
-const MissingKid = require('../../model/missingKid')
+const MissingPet = require('../../model/missingPet')
 
-const addMissingKidController = aysncHandler( async (req, res) => {
+const addMissingPetController = aysncHandler( async (req, res) => {
 
-    const { name, address, reward, age, contactNo, location, user_id } = req.body;
+    const { mc_id, address, reward, breed, contactNo, location, user_id } = req.body;
 
     if(contactNo.length < 11 || contactNo.max > 11){
         res.status(404)
@@ -12,18 +12,18 @@ const addMissingKidController = aysncHandler( async (req, res) => {
     }
 
     console.log(user_id)
-    const missingKid = await MissingKid.create( {
-        name,
+    const missingPet = await MissingPet.create( {
+        mc_id,
         address,
         reward,
-        age,
+        breed,
         contactNo,
         location,
         user_id
     } )
 
-    if(missingKid) {
-        res.status(200).json(missingKid);
+    if(missingPet) {
+        res.status(200).json(missingPet);
     }
 
     else {
@@ -33,4 +33,4 @@ const addMissingKidController = aysncHandler( async (req, res) => {
 
 })
 
-module.exports = { addMissingKidController }
+module.exports = { addMissingPetController }

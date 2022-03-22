@@ -1,13 +1,16 @@
 const User = require('../../model/user')
+const config = require('config')
 
 const getRegisterUserList = async (req, res) => {
     try{
         const userList = await User.find({})
+
         return res.status(200).send({
             success: true,
             data: userList,
             status: 200
         })
+
     }
     catch (err){
         console.log(err)

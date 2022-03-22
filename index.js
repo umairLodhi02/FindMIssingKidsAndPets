@@ -1,8 +1,14 @@
 const express = require('express')
 const connectDB = require("./config/db");
 const cors = require('cors')
+
+
 const userRouter = require('./routers/userRoutes/user.routes')
-const kidRouter = require('./routers/kidRoutes/missingKid.routes')
+const kidRouter = require('./routers/kidRoutes/kid.routes')
+const petRouter = require('./routers/PetRoutes/pet.routes')
+const adminRouter = require('./routers/adminRoutes/admin.routes')
+
+
 const verifyToken = require('./middleware/auth')
 const {errorHandler} = require("./middleware/error");
 const dotenv = require('dotenv')
@@ -11,13 +17,15 @@ const app = express()
 
 app.use(express.json({extended: true}))
 app.use(express.urlencoded({extended: true}))
-// app.use(cors())
+app.use(cors())
 dotenv.config()
 
 connectDB()
 
 app.use('/api/user/', userRouter)
 app.use('/api/kids/', kidRouter)
+app.use('/api/pets/', petRouter)
+app.use('/api/admin/', adminRouter)
 
 app.use("*", (req, res) => {
     res.status(404).json({

@@ -27,7 +27,9 @@ const missingKidSchema = new mongoose.Schema({
     },
     gender:{
         type: String,
+    },
+    user_id:{
+        type: String
     }
-
 })
 module.exports = mongoose.model("Missing Kid", missingKidSchema);

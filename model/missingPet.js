@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const foundKidSchema = new mongoose.Schema({
-    name: {
+const missingPetSchema = new mongoose.Schema({
+    mc_id: {
         type: String,
         default: null
     },
@@ -9,7 +9,11 @@ const foundKidSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    age: {
+    breed: {
+        type: String,
+        default: null
+    },
+    reward: {
         type: Number,
         default: 0
     },
@@ -21,11 +25,8 @@ const foundKidSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    gender:{
-        type: String,
-    },
     user_id:{
         type: String
     }
 })
-module.exports = mongoose.model("Found Kid", foundKidSchema);
+module.exports = mongoose.model("Missing Pet", missingPetSchema);
