@@ -6,17 +6,24 @@ const tokenKey = config.get('tokenKey')
 
 
 const updateUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.body.user_id);
+    console.log(req.body)
+    const {first_name, last_name, email, password, contactNo, gender, user_id} = req.body;
+
+    const user = await User.findById(user_id);
+
+    const url = req.protocol + '://' + req.get('host')
 
     console.log("user: ",user)
     if (user) {
-        user.first_name = req.body.first_name || user.first_name;
-        user.last_name = req.body.last_name || user.last_name;
-        user.email = req.body.email || user.email;
-        user.gender = req.body.gender || user.gender;
-        user.contactNo = req.body.contactNo || user.contactNo;
-        if (req.body.password) {
-            user.password = req.body.password;
+        user.first_name = first_name || user.first_name;
+        user.last_name = last_name || user.last_name;
+        user.email = email || user.email;
+        user.gender = gender || user.gender;
+        user.contactNo = contactNo || user.contactNo;
+        user.profileImg= url + '/public/' + req.file.filename || user.profileImg;
+        user.profileImgName= req.file.filename || user.profileImgName
+        if (password) {
+            user.password = password;
         }
 
         user.token = jwt.sign({
@@ -33,9 +40,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         )
         const updatedUser = await user.save();
 
-        res.json({
-           updatedUser
-        });
+        res.json(updatedUser);
     } else {
         res.status(404);
         throw new Error("User Not Found");

@@ -1,5 +1,6 @@
 const router = require('express').Router()
-
+const express = require('express');
+const app = express()
 const auth = require('../../middleware/auth')
 
 const { registerUserController} = require("../../Controller/User/registerUser.controller")
@@ -8,6 +9,9 @@ const {getRegisterUserList} = require('../../Controller/User/getUserList.control
 const {deleteUserController} = require('../../Controller/User/deleteUser.controller')
 const {updateUserProfile} = require('../../Controller/User/updateUser.controller')
 const { giveFeedbackController } = require('../../Controller/User/givefeedback.controller')
+const multer = require('multer')
+
+
 
 router.get('/userlist',  getRegisterUserList )
 router.post('/register', registerUserController)

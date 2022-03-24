@@ -17,6 +17,8 @@ const registerValidation = {
 
 const registerUserController = asyncHandler(async (req, res) => {
 
+    const url = req.protocol + '://' + req.get('host')
+
     const {first_name, last_name, email, password, contactNo, gender} = req.body;
 
     const oldUser = await User.findOne({email})
@@ -42,7 +44,10 @@ const registerUserController = asyncHandler(async (req, res) => {
         password: encryptedPassword,
         contactNo,
         gender,
+        profileImg: url + '/public/' + req.file.filename,
+        profileImgName: req.file.filename
     })
+    console.log(newUser)
 
     if(newUser) {
         res.status(200).json(newUser);
