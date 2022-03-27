@@ -3,6 +3,7 @@ const aysncHandler = require('express-async-handler')
 const MissingKid = require('../../model/missingKid')
 
 const addMissingKidController = aysncHandler( async (req, res) => {
+    const url = req.protocol + '://' + req.get('host')
 
     const { name, address, reward, age, contactNo, location, user_id } = req.body;
 
@@ -19,7 +20,8 @@ const addMissingKidController = aysncHandler( async (req, res) => {
         age,
         contactNo,
         location,
-        user_id
+        user_id,
+        profileImg: url + '/uploads/' + req.file.filename,
     } )
 
     if(missingKid) {

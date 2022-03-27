@@ -32,7 +32,8 @@ const loginUserController = asyncHandler(async (req, res) => {
                 email, password,
                 user_id: user._id,
                 isAdmin: user.isAdmin,
-                profile_img: user.profile_img
+                profileImgName: user.profileImgName,
+                profileImg: user.profileImg
             },
             tokenKey,
             {expiresIn: '2h'}

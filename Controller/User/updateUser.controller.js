@@ -20,7 +20,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.email = email || user.email;
         user.gender = gender || user.gender;
         user.contactNo = contactNo || user.contactNo;
-        user.profileImg= url + '/public/' + req.file.filename || user.profileImg;
+        user.profileImg= url + '/uploads/' + req.file.filename || user.profileImg;
         user.profileImgName= req.file.filename || user.profileImgName
         if (password) {
             user.password = password;

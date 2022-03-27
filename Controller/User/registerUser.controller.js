@@ -19,7 +19,7 @@ const registerUserController = asyncHandler(async (req, res) => {
 
     const url = req.protocol + '://' + req.get('host')
 
-    const {first_name, last_name, email, password, contactNo, gender} = req.body;
+    const {first_name, last_name, email, password, contactNo, gender, isAdmin} = req.body;
 
     const oldUser = await User.findOne({email})
     if (oldUser) {
@@ -44,8 +44,9 @@ const registerUserController = asyncHandler(async (req, res) => {
         password: encryptedPassword,
         contactNo,
         gender,
-        profileImg: url + '/public/' + req.file.filename,
-        profileImgName: req.file.filename
+        profileImg: url + '/uploads/' + req.file.filename,
+        profileImgName: req.file.filename,
+        isAdmin
     })
     console.log(newUser)
 

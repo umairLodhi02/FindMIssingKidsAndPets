@@ -38,7 +38,7 @@ let upload = multer({
     }
 })
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/uploads'));
 app.use('/uploads', express.static('uploads'));
 
 //
@@ -52,8 +52,8 @@ dotenv.config()
 connectDB()
 
 app.use('/api/user/', upload.single('profileImg'), userRouter)
-app.use('/api/kids/', kidRouter)
-app.use('/api/pets/', petRouter)
+app.use('/api/kids/', upload.single('profileImg'), kidRouter)
+app.use('/api/pets/',  upload.single('profileImg'), petRouter)
 app.use('/api/admin/', adminRouter)
 
 app.use("*", (req, res) => {
