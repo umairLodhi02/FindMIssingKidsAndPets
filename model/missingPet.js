@@ -27,6 +27,9 @@ const missingPetSchema = new mongoose.Schema({
     },
     user_id:{
         type: String
+    },
+    profileImg:{
+        type: String
     }
 })
 module.exports = mongoose.model("Missing Pet", missingPetSchema);

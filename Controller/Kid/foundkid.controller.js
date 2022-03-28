@@ -4,11 +4,17 @@ const FoundKid = require('../../model/foundKid')
 
 const addFoundKidController = aysncHandler( async (req, res) => {
 
+    const url = req.protocol + '://' + req.get('host')
+
     const { name, address, age, contactNo, location, user_id } = req.body;
 
     if(contactNo.length < 11 || contactNo.max > 11){
         res.status(404)
         throw new Error("Contact NO. must be equal to 11 digits")
+    }
+    if(age < 0){
+        res.status(404)
+        throw new Error("Age cannot be a negative value")
     }
 
     console.log(user_id)
@@ -18,13 +24,13 @@ const addFoundKidController = aysncHandler( async (req, res) => {
         age,
         contactNo,
         location,
-        user_id
+        user_id,
+        profileImg: url + '/uploads/' + req.file.filename,
     } )
 
     if(foundKid) {
         res.status(200).json(foundKid);
     }
-
     else {
         res.status(400);
         throw new Error("Something Went Wrong!!!");

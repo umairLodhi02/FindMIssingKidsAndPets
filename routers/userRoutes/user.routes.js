@@ -9,7 +9,8 @@ const {getRegisterUserList} = require('../../Controller/User/getUserList.control
 const {deleteUserController} = require('../../Controller/User/deleteUser.controller')
 const {updateUserProfile} = require('../../Controller/User/updateUser.controller')
 const { giveFeedbackController } = require('../../Controller/User/givefeedback.controller')
-const multer = require('multer')
+const { findEmailController } = require('../../Controller/User/findemail.controller')
+const { getPostsController } = require('../../Controller/User/getposts.controller')
 
 
 
@@ -18,6 +19,8 @@ router.post('/register', registerUserController)
 router.post('/login', loginUserController)
 router.post('/editprofile', updateUserProfile)
 router.post('/givefeedback', giveFeedbackController)
+router.post('/findemail', findEmailController)
+router.get('/getposts/:id', getPostsController)
 
 router.delete('/deleteuser/:id', deleteUserController)
 

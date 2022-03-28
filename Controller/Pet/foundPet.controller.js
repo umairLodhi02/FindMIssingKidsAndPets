@@ -5,6 +5,8 @@ const aysncHandler = require('express-async-handler')
 
 const addFoundPetController = aysncHandler( async (req, res) => {
 
+    const url = req.protocol + '://' + req.get('host')
+
     const { mc_id, address, breed, contactNo, location, user_id } = req.body;
 
     if(contactNo.length < 11 || contactNo.max > 11){
@@ -19,7 +21,8 @@ const addFoundPetController = aysncHandler( async (req, res) => {
         breed,
         contactNo,
         location,
-        user_id
+        user_id,
+        profileImg: url + '/uploads/' + req.file.filename,
     } )
 
     if(foundPet) {

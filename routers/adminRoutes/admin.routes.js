@@ -17,7 +17,5 @@ router.get('/totalpetscomplaints', totalPetsComplaintsController)
 router.get('/allfeedbacks', getAllFeedbacksController)
 router.delete('/deleteuser/:id', deleteUserController)
 
-// router.get('/totalpendingcomplaint')
-// router.get('/totalmissingcomplaint')
 
 module.exports = router

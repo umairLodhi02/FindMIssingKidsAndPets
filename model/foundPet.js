@@ -23,6 +23,9 @@ const foundPetSchema = new mongoose.Schema({
     },
     user_id:{
         type: String
+    },
+    profileImg:{
+        type: String
     }
 })
 module.exports = mongoose.model("Found Pet", foundPetSchema);

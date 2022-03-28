@@ -11,6 +11,10 @@ const addMissingKidController = aysncHandler( async (req, res) => {
         res.status(404)
         throw new Error("Contact NO. must be equal to 11 digits")
     }
+    if(age < 0){
+        res.status(404)
+        throw new Error("Age cannot be a negative value")
+    }
 
     console.log(user_id)
     const missingKid = await MissingKid.create( {

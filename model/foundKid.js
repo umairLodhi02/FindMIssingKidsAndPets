@@ -26,6 +26,9 @@ const foundKidSchema = new mongoose.Schema({
     },
     user_id:{
         type: String
+    },
+    profileImg:{
+        type: String
     }
 })
 module.exports = mongoose.model("Found Kid", foundKidSchema);
