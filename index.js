@@ -1,8 +1,9 @@
 const express = require('express')
 const connectDB = require("./config/db");
 const cors = require('cors')
-const fileUpload = require('express-fileupload')
 const multer = require('multer')
+const helmet = require('helmet')
+const compression = require('compression')
 
 
 const userRouter = require('./routers/userRoutes/user.routes')
@@ -29,7 +30,7 @@ let storage = multer.diskStorage({
 let upload = multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
-        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+        if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
             cb(null, true);
         } else {
             cb(null, false);
@@ -40,12 +41,11 @@ let upload = multer({
 
 app.use(express.static(__dirname + '/uploads'));
 app.use('/uploads', express.static('uploads'));
-
-//
-// app.use(fileUpload({}));
-// app.use(express.static("files"));
+app.use(helmet())
+app.use(compression())
 app.use(express.json({extended: true}))
 app.use(express.urlencoded({extended: true}))
+
 app.use(cors())
 dotenv.config()
 

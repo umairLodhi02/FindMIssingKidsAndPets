@@ -7,7 +7,7 @@ const addFoundPetController = aysncHandler( async (req, res) => {
 
     const url = req.protocol + '://' + req.get('host')
 
-    const { mc_id, address, breed, contactNo, location, user_id } = req.body;
+    const { mc_id, address, breed, contactNo, location, user_id, latitude, longitude } = req.body;
 
     if(contactNo.length < 11 || contactNo.max > 11){
         res.status(404)
@@ -23,6 +23,8 @@ const addFoundPetController = aysncHandler( async (req, res) => {
         location,
         user_id,
         profileImg: url + '/uploads/' + req.file.filename,
+        latitude,
+        longitude
     } )
 
     if(foundPet) {

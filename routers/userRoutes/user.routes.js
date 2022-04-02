@@ -11,7 +11,7 @@ const {updateUserProfile} = require('../../Controller/User/updateUser.controller
 const { giveFeedbackController } = require('../../Controller/User/givefeedback.controller')
 const { findEmailController } = require('../../Controller/User/findemail.controller')
 const { getPostsController } = require('../../Controller/User/getposts.controller')
-
+const {locationSearchController} = require('../../Controller/User/locationSearch.controller')
 
 
 router.get('/userlist',  getRegisterUserList )
@@ -21,6 +21,7 @@ router.post('/editprofile', updateUserProfile)
 router.post('/givefeedback', giveFeedbackController)
 router.post('/findemail', findEmailController)
 router.get('/getposts/:id', getPostsController)
+router.post('/locationsearch', locationSearchController)
 
 router.delete('/deleteuser/:id', deleteUserController)
 

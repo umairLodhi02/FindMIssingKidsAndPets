@@ -26,6 +26,14 @@ const foundPetSchema = new mongoose.Schema({
     },
     profileImg:{
         type: String
+    },
+    latitude: {
+        type:String,
+        default: null
+    },
+    longitude: {
+        type:String,
+        default: null
     }
 })
 module.exports = mongoose.model("Found Pet", foundPetSchema);

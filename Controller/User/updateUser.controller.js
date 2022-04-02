@@ -11,7 +11,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
     const user = await User.findById(user_id);
 
-    const url = req.protocol + '://' + req.get('host')
 
     console.log("user: ",user)
     if (user) {
@@ -20,8 +19,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.email = email || user.email;
         user.gender = gender || user.gender;
         user.contactNo = contactNo || user.contactNo;
-        user.profileImg= url + '/uploads/' + req.file.filename || user.profileImg;
-        user.profileImgName= req.file.filename || user.profileImgName
         if (password) {
             user.password = password;
         }

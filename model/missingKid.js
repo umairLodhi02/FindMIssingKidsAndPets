@@ -10,8 +10,8 @@ const missingKidSchema = new mongoose.Schema({
         default: null
     },
     age: {
-        type: Number,
-        default: 0
+        type: String,
+        default: null
     },
     reward: {
         type: Number,
@@ -33,6 +33,14 @@ const missingKidSchema = new mongoose.Schema({
     },
     profileImg:{
         type: String
+    },
+    latitude: {
+        type:String,
+        default: null
+    },
+    longitude: {
+        type:String,
+        default: null
     }
 })
 module.exports = mongoose.model("Missing Kid", missingKidSchema);

@@ -6,18 +6,13 @@ const addFoundKidController = aysncHandler( async (req, res) => {
 
     const url = req.protocol + '://' + req.get('host')
 
-    const { name, address, age, contactNo, location, user_id } = req.body;
+    const { name, address, age, contactNo, location, user_id, latitude, longitude } = req.body;
 
-    if(contactNo.length < 11 || contactNo.max > 11){
+    if(contactNo.length < 11 || contactNo.length > 11){
         res.status(404)
         throw new Error("Contact NO. must be equal to 11 digits")
     }
-    if(age < 0){
-        res.status(404)
-        throw new Error("Age cannot be a negative value")
-    }
 
-    console.log(user_id)
     const foundKid = await FoundKid.create( {
         name,
         address,
@@ -26,6 +21,8 @@ const addFoundKidController = aysncHandler( async (req, res) => {
         location,
         user_id,
         profileImg: url + '/uploads/' + req.file.filename,
+        latitude,
+        longitude
     } )
 
     if(foundKid) {

@@ -10,8 +10,8 @@ const foundKidSchema = new mongoose.Schema({
         default: null
     },
     age: {
-        type: Number,
-        default: 0
+        type: String,
+        default: null
     },
     contactNo: {
         type: String,
@@ -29,6 +29,14 @@ const foundKidSchema = new mongoose.Schema({
     },
     profileImg:{
         type: String
+    },
+    latitude: {
+        type:String,
+        default: null
+    },
+    longitude: {
+        type:String,
+        default: null
     }
 })
 module.exports = mongoose.model("Found Kid", foundKidSchema);
